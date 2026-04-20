@@ -1,9 +1,6 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    { "source": "/go/:slug", "destination": "/go/index.html" }
-  ],
   "headers": [
     {
       "source": "/api/(.*)",
@@ -14,7 +11,7 @@
       ]
     },
     {
-      "source": "/go/(.*)",
+      "source": "/go",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]

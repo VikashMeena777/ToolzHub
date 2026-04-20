@@ -61,7 +61,7 @@ module.exports = async function handler(req, res) {
             url: data.url,
             views: parseInt(views),
             created: data.created || 'unknown',
-            link: `${req.headers['x-forwarded-proto'] || 'https'}://${req.headers.host}/go/${slug}`,
+            link: `${req.headers['x-forwarded-proto'] || 'https'}://${req.headers.host}/go?slug=${slug}`,
           });
         }
       }
@@ -119,7 +119,7 @@ module.exports = async function handler(req, res) {
       // Initialize view counter
       await redis.set('views:' + slug, 0);
 
-      const fullLink = `${req.headers['x-forwarded-proto'] || 'https'}://${req.headers.host}/go/${slug}`;
+      const fullLink = `${req.headers['x-forwarded-proto'] || 'https'}://${req.headers.host}/go?slug=${slug}`;
 
       return res.status(201).json({
         success: true,

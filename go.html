@@ -202,10 +202,10 @@
        MAIN APP LOGIC
        ═══════════════════════════════════════════ */
     (function() {
-      // Extract slug from URL: /go/x7k9m2
-      const pathParts = window.location.pathname.split('/');
-      const slug = pathParts[2] || '';
+      // Extract slug from URL: /go?slug=x7k9m2 or /go/x7k9m2
       const urlParams = new URLSearchParams(window.location.search);
+      const pathParts = window.location.pathname.split('/');
+      const slug = urlParams.get('slug') || pathParts[2] || '';
       const currentStep = parseInt(urlParams.get('step') || '1');
 
       // Timer durations per step (seconds)
@@ -235,7 +235,7 @@
         } else {
           // Fetch from API (only on step 1, otherwise redirect to step 1)
           if (currentStep !== 1) {
-            window.location.href = '/go/' + slug;
+            window.location.href = '/go?slug=' + slug;
             return;
           }
 
@@ -343,7 +343,7 @@
 
           btn.addEventListener('click', function() {
             const nextStep = currentStep + 1;
-            window.location.href = '/go/' + slug + '?step=' + nextStep;
+            window.location.href = '/go?slug=' + slug + '&step=' + nextStep;
           });
         } else if (currentStep === 3) {
           // Show captcha
