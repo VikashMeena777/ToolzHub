@@ -4,4 +4,4 @@ node_modules/
 .env.production
 .env.*.local
 .vercel
-.toolzhub-bot-workflow.json
+toolzhub-bot-workflow.json

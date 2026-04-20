@@ -2,8 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/go/:slug", "destination": "/go.html" },
-    { "source": "/go/:slug/", "destination": "/go.html" }
+    { "source": "/go/:slug", "destination": "/go/index.html" }
   ],
   "headers": [
     {

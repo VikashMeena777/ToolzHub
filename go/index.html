@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessing Your Content — ToolzHub</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- ═══ AD SCRIPTS (Head) ═══ -->
+  <script type="text/javascript">
+    atOptions = {
+      'key': '41aa0ca1b7dee613dd2ccba5a1aa6e88',
+      'format': 'iframe',
+      'height': 250,
+      'width': 300,
+      'params': {}
+    };
+  </script>
+  <script type="text/javascript" src="//www.highperformanceformat.com/41aa0ca1b7dee613dd2ccba5a1aa6e88/invoke.js"></script>
+
+  <script async="async" data-cfasync="false" src="//pl27946012.effectivegatecpm.com/1cdaaf448a72bf59855b47fcb12e9412/invoke.js"></script>
+  <div id="container-1cdaaf448a72bf59855b47fcb12e9412"></div>
+
+  <!-- PopAds / Popunder -->
+  <script type="text/javascript" data-cfasync="false">
+    /*<![CDATA[/* */
+    (function(){var f=window,p="e323baf1fa57a1546e91facb605c6455",h=[["siteId",674-345+970-369+5248592],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],r=["d3d3LnZpc2FyaW9tZWRpYS5jb20vWi9janF1ZXJ5LnJlamVjdC5taW4uanM=","ZDEzazdwcmF4MXlpMDQuY2xvdWRmcm9udC5uZXQvVHl6c0wvaGh4eVYvZ2Jvb3RzdHJhcC1pY29ucGlja2VyLm1pbi5jc3M=","d3d3LndzY3BsaWxjdGx0LmNvbS94cE1RRGEvcGpxdWVyeS5yZWplY3QubWluLmpz","d3d3LmR2Y3dja2p5eC5jb20vZWYvTS95Ym9vdHN0cmFwLWljb25waWNrZXIubWluLmNzcw=="],g=-1,q,o,d=function(){clearTimeout(o);g++;if(r[g]&&!(1787549739000<(new Date).getTime()&&1<g)){q=f.document.createElement("script");q.type="text/javascript";q.async=!0;var s=f.document.getElementsByTagName("script")[0];q.src="https://"+atob(r[g]);q.crossOrigin="anonymous";q.onerror=d;q.onload=function(){clearTimeout(o);f[p.slice(0,16)+p.slice(0,16)]||d()};o=setTimeout(d,5E3);s.parentNode.insertBefore(q,s)}};if(!f[p]){try{Object.freeze(f[p]=h)}catch(e){}d()}})();
+    /*]]>/* */
+  </script>
+  <script type='text/javascript' src='//pl27946081.effectivegatecpm.com/8a/09/b5/8a09b5d92d1ddcd6fe88bef8451c4742.js'></script>
+</head>
+<body>
+
+  <!-- Minimal Navbar (logo only) -->
+  <nav class="navbar" id="navbar"></nav>
+
+  <!-- Loading State -->
+  <div class="go-page" id="loading-state">
+    <div class="go-container" style="text-align:center; padding-top: 80px;">
+      <div class="timer-display" style="font-size: 2rem; animation: pulse 1.5s ease infinite;">⏳</div>
+      <p class="mt-2">Loading your content...</p>
+    </div>
+  </div>
+
+  <!-- Error State (hidden by default) -->
+  <div id="error-state" style="display:none;">
+    <div class="error-card">
+      <div style="font-size: 3rem; margin-bottom: 16px;">😕</div>
+      <h2>Content Not Found</h2>
+      <p>The resource you're looking for doesn't exist or has been removed.</p>
+      <a href="/" class="btn btn-secondary mt-3">← Back to Home</a>
+    </div>
+  </div>
+
+  <!-- Main Content (hidden until loaded) -->
+  <div class="go-page" id="main-content" style="display:none;">
+    <div class="go-container">
+
+      <!-- Progress Steps -->
+      <div class="progress-wrapper">
+        <div class="progress-steps">
+          <div class="progress-step">
+            <div class="step-circle" id="circle-1">1</div>
+          </div>
+          <div class="step-line" id="line-1"></div>
+          <div class="progress-step">
+            <div class="step-circle" id="circle-2">2</div>
+          </div>
+          <div class="step-line" id="line-2"></div>
+          <div class="progress-step">
+            <div class="step-circle" id="circle-3">3</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timer Card -->
+      <div class="timer-card">
+        <div class="timer-label">Step <span id="step-num">1</span> of 3 — Please wait</div>
+        <div class="timer-display" id="timer-display">10</div>
+        <div class="timer-label">seconds remaining</div>
+        <div class="timer-warning" id="timer-warning">⚠️ Timer paused — please stay on this tab</div>
+        <div class="timer-progress-bar">
+          <div class="timer-progress-fill" id="timer-fill" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <!-- Ad Slot 1 -->
+      <div class="ad-slot ad-slot-banner"></div>
+
+      <!-- Blog Content (filler to look legitimate) -->
+      <div class="blog-content" id="blog-content"></div>
+
+      <!-- Ad Slot 2 -->
+      <div class="ad-slot ad-slot-banner"></div>
+
+      <!-- Continue Button (hidden until timer ends) -->
+      <div class="continue-wrapper" id="continue-wrapper">
+        <button class="btn btn-primary btn-lg" id="continue-btn">Continue to Step 2 →</button>
+      </div>
+
+      <!-- Captcha (Step 3 only) -->
+      <div class="captcha-card" id="captcha-card">
+        <h4>🔐 Verify you're human</h4>
+        <div class="captcha-code" id="captcha-text">ABCD12</div>
+        <div class="captcha-input-row">
+          <input type="text" class="captcha-input" id="captcha-input" placeholder="Enter code" maxlength="6" autocomplete="off">
+          <button class="btn btn-secondary btn-icon" onclick="refreshCaptcha()" title="New code">↻</button>
+        </div>
+        <div class="captcha-error" id="captcha-error">❌ Incorrect code, try again</div>
+        <button class="btn btn-primary" onclick="verifyCaptcha()">Verify & Get Link</button>
+      </div>
+
+      <!-- Final Link (after captcha verification) -->
+      <div class="final-link-card" id="final-link-card">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">✅</div>
+        <h3>Your Content is Ready!</h3>
+        <p>Click the button below to access your resource</p>
+        <a href="#" class="btn btn-success btn-lg" id="final-link" target="_blank" rel="noopener">Access Your Content →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom Ad -->
+  <div class="ad-slot ad-slot-banner" style="margin-bottom: 40px;">
+    <script type="text/javascript">
+      atOptions = {
+        'key': 'a5ec22c5177c996b0ffe1f8c74a4de81',
+        'format': 'iframe',
+        'height': 300,
+        'width': 160,
+        'params': {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/a5ec22c5177c996b0ffe1f8c74a4de81/invoke.js"></script>
+  </div>
+
+  <script src="/js/components.js"></script>
+  <script>
+    renderMinimalNavbar();
+
+    /* ═══════════════════════════════════════════
+       BLOG CONTENT TEMPLATES
+       Shown during timer to keep user on page
+       ═══════════════════════════════════════════ */
+    const blogContent = {
+      1: `
+        <h3>The Power of a Productive Morning Routine</h3>
+        <p>Your morning sets the tone for your entire day. A well-designed morning routine can boost your productivity, improve your mood, and help you stay focused throughout the day.</p>
+        <hr>
+        <h3>1. Wake Up at the Same Time Every Day</h3>
+        <p>Consistency is key. Waking up at a fixed time regulates your <strong>circadian rhythm</strong>, leading to better sleep and higher energy levels.</p>
+        <h3>2. Hydrate and Move Your Body</h3>
+        <p>Drink a glass of water first thing in the morning. Follow it up with light stretching, yoga, or a quick walk. Physical movement increases blood flow and releases endorphins.</p>
+        <h3>3. Avoid Immediate Screen Time</h3>
+        <p>Checking your phone instantly floods your brain with information and stress. Instead, take 15 minutes of <strong>digital silence</strong> — journal, meditate, or reflect on your goals.</p>
+        <h3>4. Plan Your Top 3 Priorities</h3>
+        <p>Write down your <strong>top three priorities</strong> for the day. This simple act increases your focus by 25%, according to productivity research.</p>
+        <h3>5. Eat a Nutrient-Dense Breakfast</h3>
+        <p>Fuel your brain with foods rich in protein and healthy fats — like eggs, oats, and nuts. Avoid sugar-heavy cereals that cause energy crashes.</p>
+        <h3>6. Use Affirmations and Gratitude</h3>
+        <p>Positive affirmations and gratitude practices help you start the day with confidence and calm.</p>
+        <blockquote><p>"I am focused, calm, and capable of handling anything that comes my way."</p></blockquote>
+      `,
+      2: `
+        <h3>7 Proven Ways to Build Passive Income</h3>
+        <p>The internet has made it easier than ever to earn <strong>passive income</strong> — money that continues to flow even when you're not actively working.</p>
+        <hr>
+        <h3>1. Sell Digital Products</h3>
+        <p>Digital products like e-books, templates, and online courses require no inventory and can generate sales 24/7. Platforms like <strong>Gumroad and Etsy</strong> make selling easy.</p>
+        <h3>2. Affiliate Marketing</h3>
+        <p>Promote other companies' products using your blog or social media. Earn a commission every time someone purchases through your unique link.</p>
+        <h3>3. Dividend Investing</h3>
+        <p>If you prefer long-term stability, consider <strong>dividend-paying stocks</strong>. They provide consistent income and capital appreciation over time.</p>
+        <h3>4. Automated Content Channels</h3>
+        <p>AI tools can now script, voice, and edit videos automatically. You can create <strong>faceless channels</strong> that generate ad revenue passively.</p>
+        <h3>5. Print-on-Demand Stores</h3>
+        <p>Using platforms like Redbubble or Teespring, you can sell custom-designed T-shirts, mugs, and posters without handling production or shipping.</p>
+        <h3>6. Rent Out Digital Assets</h3>
+        <p>Websites, email lists, or even social media pages can be rented or sold once they gain traffic.</p>
+      `,
+      3: `
+        <h3>How AI is Changing Content Creation</h3>
+        <p>Artificial Intelligence is transforming the way content is created, distributed, and optimized. From automated writing to video generation, AI has become the backbone of modern digital marketing.</p>
+        <hr>
+        <h3>1. AI-Driven Content Creation</h3>
+        <p>AI tools can now generate high-quality, human-like content in seconds. This enables creators to focus on strategy and creativity.</p>
+        <h3>2. AI Video Generation</h3>
+        <p>AI video generators are redefining storytelling. Brands can now turn simple text into cinematic-quality videos — perfect for social media.</p>
+        <h3>3. SEO Optimization with Machine Learning</h3>
+        <p>AI-powered SEO tools use machine learning to analyze top-ranking content and provide optimization insights automatically.</p>
+        <h3>4. Ethical Considerations</h3>
+        <p>While AI is powerful, it also raises questions about originality and authenticity. Content creators must balance automation with human creativity to maintain trust and quality.</p>
+      `
+    };
+
+    /* ═══════════════════════════════════════════
+       MAIN APP LOGIC
+       ═══════════════════════════════════════════ */
+    (function() {
+      // Extract slug from URL: /go/x7k9m2
+      const pathParts = window.location.pathname.split('/');
+      const slug = pathParts[2] || '';
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentStep = parseInt(urlParams.get('step') || '1');
+
+      // Timer durations per step (seconds)
+      const stepDurations = { 1: 10, 2: 10, 3: 5 };
+
+      let timeLeft = stepDurations[currentStep] || 10;
+      let totalTime = timeLeft;
+      let timerInterval = null;
+      let isTabActive = true;
+      let movieData = null;
+
+      if (!slug) {
+        showError();
+        return;
+      }
+
+      // Initialize
+      init();
+
+      async function init() {
+        // Try to get movie data from sessionStorage first
+        const cached = sessionStorage.getItem('toolzhub_movie_' + slug);
+
+        if (cached) {
+          movieData = JSON.parse(cached);
+          showMainContent();
+        } else {
+          // Fetch from API (only on step 1, otherwise redirect to step 1)
+          if (currentStep !== 1) {
+            window.location.href = '/go/' + slug;
+            return;
+          }
+
+          try {
+            const res = await fetch('/api/redirect?slug=' + encodeURIComponent(slug));
+            if (!res.ok) throw new Error('Not found');
+            const data = await res.json();
+            if (!data.url) throw new Error('No URL');
+
+            movieData = data;
+            sessionStorage.setItem('toolzhub_movie_' + slug, JSON.stringify(data));
+            showMainContent();
+          } catch (err) {
+            showError();
+          }
+        }
+      }
+
+      function showError() {
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('error-state').style.display = 'block';
+      }
+
+      function showMainContent() {
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+
+        // Update step indicators
+        document.getElementById('step-num').textContent = currentStep;
+
+        for (let i = 1; i <= 3; i++) {
+          const circle = document.getElementById('circle-' + i);
+          if (i < currentStep) {
+            circle.classList.add('done');
+            circle.textContent = '✓';
+          } else if (i === currentStep) {
+            circle.classList.add('active');
+          }
+        }
+
+        for (let i = 1; i <= 2; i++) {
+          const line = document.getElementById('line-' + i);
+          if (i < currentStep) {
+            line.classList.add('done');
+          }
+        }
+
+        // Set blog content
+        document.getElementById('blog-content').innerHTML = blogContent[currentStep] || blogContent[1];
+
+        // Set timer
+        document.getElementById('timer-display').textContent = timeLeft;
+
+        // Tab visibility detection
+        document.addEventListener('visibilitychange', function() {
+          if (document.hidden) {
+            isTabActive = false;
+            clearInterval(timerInterval);
+            document.getElementById('timer-warning').classList.add('visible');
+            document.getElementById('timer-display').classList.add('paused');
+          } else {
+            isTabActive = true;
+            document.getElementById('timer-warning').classList.remove('visible');
+            document.getElementById('timer-display').classList.remove('paused');
+            startTimer();
+          }
+        });
+
+        startTimer();
+      }
+
+      function startTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(function() {
+          if (!isTabActive) return;
+
+          timeLeft--;
+          document.getElementById('timer-display').textContent = Math.max(0, timeLeft);
+
+          // Update progress bar
+          const pct = (timeLeft / totalTime) * 100;
+          document.getElementById('timer-fill').style.width = pct + '%';
+
+          if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById('timer-display').textContent = '0';
+            onTimerComplete();
+          }
+        }, 1000);
+      }
+
+      function onTimerComplete() {
+        if (currentStep === 1 || currentStep === 2) {
+          // Show continue button
+          const wrapper = document.getElementById('continue-wrapper');
+          const btn = document.getElementById('continue-btn');
+
+          if (currentStep === 1) {
+            btn.textContent = 'Continue to Step 2 →';
+          } else {
+            btn.textContent = 'Continue to Final Step →';
+          }
+
+          wrapper.classList.add('visible');
+
+          btn.addEventListener('click', function() {
+            const nextStep = currentStep + 1;
+            window.location.href = '/go/' + slug + '?step=' + nextStep;
+          });
+        } else if (currentStep === 3) {
+          // Show captcha
+          window.refreshCaptcha();
+          document.getElementById('captcha-card').classList.add('visible');
+        }
+      }
+
+      // Captcha logic
+      let currentCaptcha = '';
+
+      window.refreshCaptcha = function() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let code = '';
+        for (let i = 0; i < 6; i++) {
+          code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        currentCaptcha = code;
+        document.getElementById('captcha-text').textContent = code;
+        document.getElementById('captcha-input').value = '';
+        document.getElementById('captcha-error').classList.remove('visible');
+      };
+
+      window.verifyCaptcha = function() {
+        const userInput = document.getElementById('captcha-input').value.trim().toUpperCase();
+
+        if (userInput === currentCaptcha) {
+          // Success! Show final link
+          document.getElementById('captcha-card').classList.remove('visible');
+          document.getElementById('captcha-card').style.display = 'none';
+
+          const finalCard = document.getElementById('final-link-card');
+          const finalLink = document.getElementById('final-link');
+
+          finalLink.href = movieData.url;
+          finalCard.classList.add('visible');
+
+          // Clean up session
+          sessionStorage.removeItem('toolzhub_movie_' + slug);
+        } else {
+          document.getElementById('captcha-error').classList.add('visible');
+          window.refreshCaptcha();
+        }
+      };
+
+      // Allow Enter key on captcha input
+      document.getElementById('captcha-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') window.verifyCaptcha();
+      });
+
+    })();
+  </script>
+</body>
+</html>
