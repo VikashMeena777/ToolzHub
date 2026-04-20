@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToolzHub — Free Online Tools for Everyone</title>
+  <meta name="description" content="Powerful, fast, and completely free online tools. QR Code Generator, Word Counter, Case Converter, JSON Formatter and more.">
+  <meta name="keywords" content="free online tools, qr code generator, word counter, case converter, json formatter">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="ToolzHub — Free Online Tools">
+  <meta property="og:description" content="Powerful, fast, and completely free online tools for developers and everyone.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar"></nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge animate-in">
+        ✨ <span>100% Free</span> — No signup required
+      </div>
+      <h1 class="animate-in animate-delay-1">
+        Free Online <span class="text-gradient">Tools</span><br>For Everyone
+      </h1>
+      <p class="animate-in animate-delay-2">
+        Powerful, fast, and beautifully designed tools to boost your productivity. No ads-wall, no registration — just pure utility.
+      </p>
+      <div class="hero-cta animate-in animate-delay-3">
+        <a href="#tools" class="btn btn-primary btn-lg">Explore Tools →</a>
+        <a href="/tools/qr" class="btn btn-secondary btn-lg">Try QR Generator</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Section -->
+  <section class="tools-section" id="tools">
+    <div class="container">
+      <h2 class="animate-in">Popular Tools</h2>
+      <p class="animate-in animate-delay-1">Choose from our collection of free, fast, and easy-to-use tools</p>
+
+      <div class="tools-grid">
+
+        <!-- QR Code Generator -->
+        <a href="/tools/qr" class="card animate-in animate-delay-1" style="text-decoration:none;">
+          <div class="card-icon" style="background: rgba(124, 92, 255, 0.1); border-color: rgba(124, 92, 255, 0.2);">
+            📱
+          </div>
+          <h3>QR Code Generator</h3>
+          <p>Generate QR codes for URLs, text, WiFi, and more. Download as PNG instantly.</p>
+          <span class="card-link">Try it free →</span>
+        </a>
+
+        <!-- Word Counter -->
+        <a href="/tools/word" class="card animate-in animate-delay-2" style="text-decoration:none;">
+          <div class="card-icon" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.2);">
+            📝
+          </div>
+          <h3>Word Counter</h3>
+          <p>Count words, characters, sentences, and paragraphs. Estimate reading time instantly.</p>
+          <span class="card-link">Try it free →</span>
+        </a>
+
+        <!-- Case Converter -->
+        <a href="/tools/case" class="card animate-in animate-delay-3" style="text-decoration:none;">
+          <div class="card-icon" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2);">
+            🔤
+          </div>
+          <h3>Case Converter</h3>
+          <p>Convert text between UPPERCASE, lowercase, Title Case, Sentence case and more.</p>
+          <span class="card-link">Try it free →</span>
+        </a>
+
+        <!-- JSON Formatter -->
+        <a href="/tools/json" class="card animate-in animate-delay-4" style="text-decoration:none;">
+          <div class="card-icon" style="background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2);">
+            { }
+          </div>
+          <h3>JSON Formatter</h3>
+          <p>Format, beautify, and validate JSON data. Syntax highlighting and error detection.</p>
+          <span class="card-link">Try it free →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section style="padding: 40px 0 80px;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; text-align: center;">
+        <div class="animate-in animate-delay-1">
+          <div style="font-size: 2rem; margin-bottom: 8px;">🚀</div>
+          <h4>Lightning Fast</h4>
+          <p style="font-size: 0.8125rem;">All tools run in your browser. No server processing needed.</p>
+        </div>
+        <div class="animate-in animate-delay-2">
+          <div style="font-size: 2rem; margin-bottom: 8px;">🔒</div>
+          <h4>100% Private</h4>
+          <p style="font-size: 0.8125rem;">Your data never leaves your browser. Nothing is stored on our servers.</p>
+        </div>
+        <div class="animate-in animate-delay-3">
+          <div style="font-size: 2rem; margin-bottom: 8px;">📱</div>
+          <h4>Mobile Friendly</h4>
+          <p style="font-size: 0.8125rem;">Works perfectly on phones, tablets, and desktops.</p>
+        </div>
+        <div class="animate-in animate-delay-4">
+          <div style="font-size: 2rem; margin-bottom: 8px;">💰</div>
+          <h4>Always Free</h4>
+          <p style="font-size: 0.8125rem;">No hidden costs, no premium plans. Free forever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="footer"></footer>
+
+  <script src="/js/components.js"></script>
+  <script>
+    renderNavbar('home');
+    renderFooter();
+  </script>
+</body>
+</html>

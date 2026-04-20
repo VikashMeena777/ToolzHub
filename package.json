@@ -1,0 +1,9 @@
+{
+  "name": "toolzhub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Free Online Tools Hub",
+  "dependencies": {
+    "@upstash/redis": "^1.34.3"
+  }
+}

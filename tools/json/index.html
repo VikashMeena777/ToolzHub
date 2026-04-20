@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free JSON Formatter — ToolzHub</title>
+  <meta name="description" content="Format, beautify, minify, and validate JSON data. Syntax highlighting and error detection. Free online tool.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .json-output {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 400px;
+      overflow-y: auto;
+      margin-top: 16px;
+    }
+    .json-output .json-key { color: #a78bfa; }
+    .json-output .json-string { color: #34d399; }
+    .json-output .json-number { color: #f59e0b; }
+    .json-output .json-boolean { color: #06b6d4; }
+    .json-output .json-null { color: #6b7280; }
+    .json-error { color: var(--danger); font-size: 0.875rem; margin-top: 12px; padding: 12px; background: rgba(239,68,68,0.1); border-radius: var(--radius-sm); display: none; }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <section class="tool-page">
+    <div class="container-narrow">
+      <div class="tool-header animate-in">
+        <h1>{ } JSON <span class="text-gradient">Formatter</span></h1>
+        <p>Format, beautify, minify, and validate your JSON data</p>
+      </div>
+
+      <div class="tool-container animate-in animate-delay-1">
+        <textarea id="json-input" placeholder='Paste your JSON here, e.g. {"name": "John", "age": 30}'></textarea>
+
+        <div class="tool-actions">
+          <button class="btn btn-primary btn-sm" onclick="formatJSON()">✨ Beautify</button>
+          <button class="btn btn-primary btn-sm" onclick="minifyJSON()">📦 Minify</button>
+          <button class="btn btn-secondary btn-sm" onclick="validateJSON()">✅ Validate</button>
+          <button class="btn btn-secondary btn-sm" onclick="copyJSON()">📋 Copy</button>
+          <button class="btn btn-secondary btn-sm" onclick="clearJSON()">🗑 Clear</button>
+        </div>
+
+        <div class="json-error" id="json-error"></div>
+        <div class="json-output" id="json-output" style="display:none;"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="/js/components.js"></script>
+  <script>
+    renderNavbar('json');
+    renderFooter();
+
+    function getInput() {
+      return document.getElementById('json-input').value.trim();
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('json-error');
+      el.textContent = '❌ ' + msg;
+      el.style.display = 'block';
+      document.getElementById('json-output').style.display = 'none';
+    }
+
+    function hideError() {
+      document.getElementById('json-error').style.display = 'none';
+    }
+
+    function syntaxHighlight(json) {
+      json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      return json.replace(
+        /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+        function(match) {
+          let cls = 'json-number';
+          if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+              cls = 'json-key';
+            } else {
+              cls = 'json-string';
+            }
+          } else if (/true|false/.test(match)) {
+            cls = 'json-boolean';
+          } else if (/null/.test(match)) {
+            cls = 'json-null';
+          }
+          return '<span class="' + cls + '">' + match + '</span>';
+        }
+      );
+    }
+
+    function formatJSON() {
+      const text = getInput();
+      if (!text) { showError('Please paste some JSON first.'); return; }
+      try {
+        const obj = JSON.parse(text);
+        const formatted = JSON.stringify(obj, null, 2);
+        document.getElementById('json-input').value = formatted;
+        document.getElementById('json-output').innerHTML = syntaxHighlight(formatted);
+        document.getElementById('json-output').style.display = 'block';
+        hideError();
+      } catch (e) {
+        showError('Invalid JSON: ' + e.message);
+      }
+    }
+
+    function minifyJSON() {
+      const text = getInput();
+      if (!text) { showError('Please paste some JSON first.'); return; }
+      try {
+        const obj = JSON.parse(text);
+        const minified = JSON.stringify(obj);
+        document.getElementById('json-input').value = minified;
+        document.getElementById('json-output').style.display = 'none';
+        hideError();
+      } catch (e) {
+        showError('Invalid JSON: ' + e.message);
+      }
+    }
+
+    function validateJSON() {
+      const text = getInput();
+      if (!text) { showError('Please paste some JSON first.'); return; }
+      try {
+        JSON.parse(text);
+        const el = document.getElementById('json-error');
+        el.textContent = '✅ Valid JSON!';
+        el.style.display = 'block';
+        el.style.color = 'var(--success)';
+        el.style.background = 'rgba(16,185,129,0.1)';
+        setTimeout(() => { el.style.color = ''; el.style.background = ''; }, 3000);
+      } catch (e) {
+        showError('Invalid JSON: ' + e.message);
+      }
+    }
+
+    function copyJSON() {
+      const text = document.getElementById('json-input').value;
+      if (!text) return;
+      navigator.clipboard.writeText(text);
+      alert('JSON copied to clipboard!');
+    }
+
+    function clearJSON() {
+      document.getElementById('json-input').value = '';
+      document.getElementById('json-output').style.display = 'none';
+      hideError();
+    }
+  </script>
+</body>
+</html>

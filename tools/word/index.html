@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Word Counter — ToolzHub</title>
+  <meta name="description" content="Count words, characters, sentences, paragraphs and estimate reading time. Free, instant, no signup.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <section class="tool-page">
+    <div class="container-narrow">
+      <div class="tool-header animate-in">
+        <h1>📝 Word <span class="text-gradient">Counter</span></h1>
+        <p>Paste or type your text to get instant word and character counts</p>
+      </div>
+
+      <div class="tool-container animate-in animate-delay-1">
+        <textarea id="word-input" placeholder="Start typing or paste your text here..." oninput="countWords()"></textarea>
+
+        <div class="tool-stats" id="word-stats">
+          <div class="stat-item">
+            <div class="stat-value" id="stat-words">0</div>
+            <div class="stat-label">Words</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="stat-chars">0</div>
+            <div class="stat-label">Characters</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="stat-sentences">0</div>
+            <div class="stat-label">Sentences</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="stat-paragraphs">0</div>
+            <div class="stat-label">Paragraphs</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="stat-reading">0m</div>
+            <div class="stat-label">Reading Time</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="stat-speaking">0m</div>
+            <div class="stat-label">Speaking Time</div>
+          </div>
+        </div>
+
+        <div class="tool-actions">
+          <button class="btn btn-secondary btn-sm" onclick="copyText()">📋 Copy Text</button>
+          <button class="btn btn-secondary btn-sm" onclick="clearText()">🗑 Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="/js/components.js"></script>
+  <script>
+    renderNavbar('word');
+    renderFooter();
+
+    function countWords() {
+      const text = document.getElementById('word-input').value;
+
+      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+      const chars = text.length;
+      const sentences = text.trim() ? (text.match(/[.!?]+/g) || []).length || (text.trim() ? 1 : 0) : 0;
+      const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter(p => p.trim()).length || (text.trim() ? 1 : 0) : 0;
+      const readingMin = Math.ceil(words / 200);
+      const speakingMin = Math.ceil(words / 130);
+
+      document.getElementById('stat-words').textContent = words.toLocaleString();
+      document.getElementById('stat-chars').textContent = chars.toLocaleString();
+      document.getElementById('stat-sentences').textContent = sentences;
+      document.getElementById('stat-paragraphs').textContent = paragraphs;
+      document.getElementById('stat-reading').textContent = readingMin + 'm';
+      document.getElementById('stat-speaking').textContent = speakingMin + 'm';
+    }
+
+    function copyText() {
+      const text = document.getElementById('word-input').value;
+      if (!text) return;
+      navigator.clipboard.writeText(text);
+      alert('Text copied to clipboard!');
+    }
+
+    function clearText() {
+      document.getElementById('word-input').value = '';
+      countWords();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free QR Code Generator — ToolzHub</title>
+  <meta name="description" content="Generate QR codes for URLs, text, WiFi and more. Download as PNG. Free, fast, no signup required.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <section class="tool-page">
+    <div class="container-narrow">
+      <div class="tool-header animate-in">
+        <h1>📱 QR Code <span class="text-gradient">Generator</span></h1>
+        <p>Enter any URL or text to generate a QR code instantly</p>
+      </div>
+
+      <div class="tool-container animate-in animate-delay-1">
+        <input type="url" id="qr-input" placeholder="Enter URL or text (e.g., https://example.com)" autofocus>
+        <div class="tool-actions">
+          <button class="btn btn-primary" onclick="generateQR()">Generate QR Code</button>
+          <button class="btn btn-secondary" onclick="clearQR()">Clear</button>
+        </div>
+
+        <div class="tool-result" id="qr-result" style="display:none;">
+          <div style="text-align:center;">
+            <canvas id="qr-canvas" style="max-width:100%;border-radius:12px;background:white;padding:16px;"></canvas>
+            <div class="mt-2">
+              <button class="btn btn-success btn-sm" onclick="downloadQR()">⬇ Download PNG</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    renderNavbar('qr');
+    renderFooter();
+
+    function generateQR() {
+      const input = document.getElementById('qr-input').value.trim();
+      if (!input) { alert('Please enter a URL or text.'); return; }
+
+      const canvas = document.getElementById('qr-canvas');
+      QRCode.toCanvas(canvas, input, {
+        width: 280,
+        margin: 2,
+        color: { dark: '#000000', light: '#ffffff' }
+      }, function(err) {
+        if (err) { alert('Error generating QR code. Try again.'); return; }
+        document.getElementById('qr-result').style.display = 'block';
+      });
+    }
+
+    function downloadQR() {
+      const canvas = document.getElementById('qr-canvas');
+      const link = document.createElement('a');
+      link.download = 'qrcode-toolzhub.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    function clearQR() {
+      document.getElementById('qr-input').value = '';
+      document.getElementById('qr-result').style.display = 'none';
+    }
+
+    document.getElementById('qr-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') generateQR();
+    });
+  </script>
+</body>
+</html>

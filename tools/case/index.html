@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Case Converter — ToolzHub</title>
+  <meta name="description" content="Convert text between UPPERCASE, lowercase, Title Case, Sentence case and more. Free and instant.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <section class="tool-page">
+    <div class="container-narrow">
+      <div class="tool-header animate-in">
+        <h1>🔤 Case <span class="text-gradient">Converter</span></h1>
+        <p>Convert your text to any case format instantly</p>
+      </div>
+
+      <div class="tool-container animate-in animate-delay-1">
+        <textarea id="case-input" placeholder="Type or paste your text here..."></textarea>
+
+        <div class="tool-actions">
+          <button class="btn btn-primary btn-sm" onclick="convert('upper')">UPPERCASE</button>
+          <button class="btn btn-primary btn-sm" onclick="convert('lower')">lowercase</button>
+          <button class="btn btn-primary btn-sm" onclick="convert('title')">Title Case</button>
+          <button class="btn btn-primary btn-sm" onclick="convert('sentence')">Sentence case</button>
+          <button class="btn btn-primary btn-sm" onclick="convert('camel')">camelCase</button>
+          <button class="btn btn-primary btn-sm" onclick="convert('toggle')">tOGGLE</button>
+        </div>
+
+        <div class="tool-actions mt-1">
+          <button class="btn btn-secondary btn-sm" onclick="copyResult()">📋 Copy Result</button>
+          <button class="btn btn-secondary btn-sm" onclick="clearAll()">🗑 Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="/js/components.js"></script>
+  <script>
+    renderNavbar('case');
+    renderFooter();
+
+    function convert(type) {
+      const input = document.getElementById('case-input');
+      const text = input.value;
+      if (!text) return;
+
+      switch (type) {
+        case 'upper':
+          input.value = text.toUpperCase();
+          break;
+        case 'lower':
+          input.value = text.toLowerCase();
+          break;
+        case 'title':
+          input.value = text.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+          break;
+        case 'sentence':
+          input.value = text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase());
+          break;
+        case 'camel':
+          input.value = text.toLowerCase()
+            .replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase())
+            .replace(/^[A-Z]/, c => c.toLowerCase());
+          break;
+        case 'toggle':
+          input.value = text.split('').map(c =>
+            c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()
+          ).join('');
+          break;
+      }
+    }
+
+    function copyResult() {
+      const text = document.getElementById('case-input').value;
+      if (!text) return;
+      navigator.clipboard.writeText(text);
+      alert('Copied to clipboard!');
+    }
+
+    function clearAll() {
+      document.getElementById('case-input').value = '';
+    }
+  </script>
+</body>
+</html>
