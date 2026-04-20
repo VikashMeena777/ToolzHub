@@ -1,7 +1,9 @@
 {
   "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
-    { "source": "/go/:slug", "destination": "/go.html" }
+    { "source": "/go/:slug", "destination": "/go.html" },
+    { "source": "/go/:slug/", "destination": "/go.html" }
   ],
   "headers": [
     {
@@ -9,11 +11,11 @@
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Access-Control-Allow-Methods", "value": "GET,POST,DELETE,OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type,Authorization" }
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type,Authorization,X-Api-Secret" }
       ]
     },
     {
-      "source": "/go(.*)",
+      "source": "/go/(.*)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]

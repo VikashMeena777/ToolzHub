@@ -1,0 +1,778 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "trigger-1",
+      "name": "Telegram Trigger",
+      "position": [
+        0,
+        304
+      ],
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "webhookId": "68bb50f7-80d5-439b-ba06-eba2c62d5db7",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZhqqbLdTmSsThKO6",
+          "name": "Movie Links Uploader"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "chatId",
+              "name": "chatId",
+              "type": "number",
+              "value": "={{ $json.message.chat.id }}"
+            },
+            {
+              "id": "text",
+              "name": "text",
+              "type": "string",
+              "value": "={{ $json.message.text || '' }}"
+            },
+            {
+              "id": "command",
+              "name": "command",
+              "type": "string",
+              "value": "={{ ($json.message.text || '').split(' ')[0].toLowerCase() }}"
+            },
+            {
+              "id": "args",
+              "name": "args",
+              "type": "string",
+              "value": "={{ ($json.message.text || '').substring(($json.message.text || '').indexOf(' ') + 1) }}"
+            },
+            {
+              "id": "siteUrl",
+              "name": "siteUrl",
+              "type": "string",
+              "value": "https://toolzhub-xi.vercel.app"
+            },
+            {
+              "id": "apiSecret",
+              "name": "apiSecret",
+              "type": "string",
+              "value": "SFK50azEfDDKFMgcdgIWTfWj"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "extract-1",
+      "name": "Extract Command",
+      "position": [
+        224,
+        304
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.command }}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "/add"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                }
+              },
+              "renameOutput": true,
+              "outputKey": "add"
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.command }}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "/list"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                }
+              },
+              "renameOutput": true,
+              "outputKey": "list"
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.command }}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "/stats"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                }
+              },
+              "renameOutput": true,
+              "outputKey": "stats"
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.command }}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "/delete"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                }
+              },
+              "renameOutput": true,
+              "outputKey": "delete"
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.command }}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "/help"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                }
+              },
+              "renameOutput": true,
+              "outputKey": "help"
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.command }}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "/start"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                }
+              },
+              "renameOutput": true,
+              "outputKey": "start"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra",
+          "ignoreCase": true
+        }
+      },
+      "id": "switch-1",
+      "name": "Route Command",
+      "position": [
+        448,
+        304
+      ],
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "jsCode": "const args = $input.first().json.args || '';\nconst chatId = $input.first().json.chatId;\nconst siteUrl = $input.first().json.siteUrl;\nconst apiSecret = $input.first().json.apiSecret;\nconst parts = args.split('|').map(s => s.trim());\nconst movieName = parts[0] || '';\nconst movieUrl = parts[1] || '';\nconst isValid = movieName.length > 0 && movieUrl.startsWith('http');\nreturn [{ json: { chatId, movieName, movieUrl, isValid, siteUrl, apiSecret } }];"
+      },
+      "id": "add-parse",
+      "name": "Parse Add Input",
+      "position": [
+        704,
+        -96
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ $json.isValid }}",
+              "operator": {
+                "operation": "equals",
+                "type": "boolean"
+              },
+              "rightValue": true,
+              "id": "condition-1776721318238-el9x9zp8d"
+            }
+          ],
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": false,
+            "typeValidation": "loose"
+          }
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "id": "add-check",
+      "name": "Valid Input?",
+      "position": [
+        928,
+        -96
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.siteUrl }}/api/movies",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Api-Secret",
+              "value": "={{ $json.apiSecret }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $json.movieName }}"
+            },
+            {
+              "name": "url",
+              "value": "={{ $json.movieUrl }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "add-api",
+      "name": "Add Movie API",
+      "position": [
+        1152,
+        -176
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Parse Add Input').item.json.chatId }}",
+        "text": "=✅ *Movie Added!*\n\n🎬 *Name:* {{ $json.name }}\n🔗 *Link:* `{{ $('Parse Add Input').item.json.siteUrl }}/go/{{ $json.slug }}`\n\n📋 Copy and share!",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "add-success",
+      "name": "Send Add Success",
+      "position": [
+        1360,
+        -176
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "c9872564-69f6-47f8-a482-706be4ed5b96",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZhqqbLdTmSsThKO6",
+          "name": "Movie Links Uploader"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "❌ *Invalid!* Use: `/add Name | URL`",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "add-error-reply",
+      "name": "Send Add Error",
+      "position": [
+        1152,
+        -16
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "dfb3955d-60c4-4aaf-a0b1-d356514e947a",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZhqqbLdTmSsThKO6",
+          "name": "Movie Links Uploader"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.siteUrl }}/api/movies",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Api-Secret",
+              "value": "={{ $json.apiSecret }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "list-api",
+      "name": "List Movies API",
+      "position": [
+        704,
+        112
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatId = $('Extract Command').item.json.chatId;\nconst siteUrl = $('Extract Command').item.json.siteUrl;\nconst movies = $input.first().json.movies || [];\nif (!movies.length) return [{ json: { chatId, text: 'No movies yet! /add to start' } }];\nlet t = `🎬 *Movies* (${movies.length})\\n\\n`;\nmovies.forEach((m,i) => { t += `${i+1}. *${m.name}*\\n   \\`${siteUrl}/go/${m.slug}\\`\\n   👁 ${m.views||0}\\n\\n`; });\nreturn [{ json: { chatId, text: t } }];"
+      },
+      "id": "list-format",
+      "name": "Format List",
+      "position": [
+        928,
+        112
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "list-reply",
+      "name": "Send List",
+      "position": [
+        1152,
+        112
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "f273ce6f-6081-4f54-99a6-f9d9592d9c30",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZhqqbLdTmSsThKO6",
+          "name": "Movie Links Uploader"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.siteUrl }}/api/stats",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Api-Secret",
+              "value": "={{ $json.apiSecret }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "stats-api",
+      "name": "Stats API",
+      "position": [
+        704,
+        304
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatId = $('Extract Command').item.json.chatId;\nconst d = $input.first().json;\nlet t = `📊 *Stats*\\n\\n🎬 ${d.totalMovies} movies\\n👁 ${d.totalViews} views\\n\\n`;\nif (d.topMovies && d.topMovies.length) { t += '🏆 *Top:*\\n'; d.topMovies.forEach((m,i) => { t += `${['🥇','🥈','🥉'][i]} ${m.name} - ${m.views}\\n`; }); }\nreturn [{ json: { chatId, text: t } }];"
+      },
+      "id": "stats-format",
+      "name": "Format Stats",
+      "position": [
+        928,
+        304
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "stats-reply",
+      "name": "Send Stats",
+      "position": [
+        1152,
+        304
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "3476afe4-959b-44c8-93e6-c82340cd7c0f",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZhqqbLdTmSsThKO6",
+          "name": "Movie Links Uploader"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "={{ $json.siteUrl }}/api/movies?slug={{ $json.args }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Api-Secret",
+              "value": "={{ $json.apiSecret }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "delete-api",
+      "name": "Delete Movie API",
+      "position": [
+        704,
+        512
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Extract Command').item.json.chatId }}",
+        "text": "={{ $json.success ? '✅ Deleted!' : '❌ Not found' }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "delete-reply",
+      "name": "Send Delete Result",
+      "position": [
+        928,
+        512
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "1cd3364f-0c2c-41d8-9ab8-9739e7dfed74",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZhqqbLdTmSsThKO6",
+          "name": "Movie Links Uploader"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "📖 *Commands*\n/add `Name | URL`\n/list\n/stats\n/delete `slug`\n/help",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "help-reply",
+      "name": "Send Help",
+      "position": [
+        704,
+        704
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "f2161f81-82bd-4834-98ce-dedcf4e3814c",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZhqqbLdTmSsThKO6",
+          "name": "Movie Links Uploader"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "🎬 *Welcome to ToolzHub!*\nType /help for commands.",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "start-reply",
+      "name": "Send Welcome",
+      "position": [
+        704,
+        912
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "498afe6a-9c0a-499a-a51f-3202b944b306",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZhqqbLdTmSsThKO6",
+          "name": "Movie Links Uploader"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Movies Links Uploader Workflow",
+        "height": 1296,
+        "width": 1616
+      },
+      "id": "note-1",
+      "name": "Setup",
+      "position": [
+        -80,
+        -208
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract Command",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Extract Command": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Route Command",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Route Command": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Parse Add Input",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "List Movies API",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Stats API",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Delete Movie API",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Send Help",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Send Welcome",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Parse Add Input": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Valid Input?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Valid Input?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Add Movie API",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Send Add Error",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Add Movie API": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Add Success",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "List Movies API": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Format List",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Format List": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send List",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Stats API": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Format Stats",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Format Stats": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Stats",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Delete Movie API": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Delete Result",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "260ed10ca7527eef1744f6416cc66abd26c4fd51c36b77a8b51c7f7491d8e75e"
+  }
+}
