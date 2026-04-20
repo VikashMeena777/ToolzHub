@@ -328,7 +328,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Parse Add Input').item.json.chatId }}",
-        "text": "=✅ *Movie Added!*\n\n🎬 *Name:* {{ $json.name }}\n🔗 *Link:* `{{ $('Parse Add Input').item.json.siteUrl }}/go/{{ $json.slug }}`\n\n📋 Copy and share!",
+        "text": "=✅ *Movie Added!*\n\n🎬 *Name:* {{ $json.name }}\n🔗 *Link:* `{{ $('Parse Add Input').item.json.siteUrl }}/go?slug={{ $json.slug }}`\n\n📋 Copy and share!",
         "additionalFields": {
           "parse_mode": "Markdown"
         }
@@ -398,7 +398,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const chatId = $('Extract Command').item.json.chatId;\nconst siteUrl = $('Extract Command').item.json.siteUrl;\nconst movies = $input.first().json.movies || [];\nif (!movies.length) return [{ json: { chatId, text: 'No movies yet! /add to start' } }];\nlet t = `🎬 *Movies* (${movies.length})\\n\\n`;\nmovies.forEach((m,i) => { t += `${i+1}. *${m.name}*\\n   \\`${siteUrl}/go/${m.slug}\\`\\n   👁 ${m.views||0}\\n\\n`; });\nreturn [{ json: { chatId, text: t } }];"
+        "jsCode": "const chatId = $('Extract Command').item.json.chatId;\nconst siteUrl = $('Extract Command').item.json.siteUrl;\nconst movies = $input.first().json.movies || [];\nif (!movies.length) return [{ json: { chatId, text: 'No movies yet! /add to start' } }];\nlet t = `🎬 *Movies* (${movies.length})\\n\\n`;\nmovies.forEach((m,i) => { t += `${i+1}. *${m.name}*\\n   \\`${siteUrl}/go?slug=${m.slug}\\`\\n   👁 ${m.views||0}\\n\\n`; });\nreturn [{ json: { chatId, text: t } }];"
       },
       "id": "list-format",
       "name": "Format List",

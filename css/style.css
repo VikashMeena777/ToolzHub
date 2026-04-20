@@ -661,6 +661,25 @@ p { color: var(--text-secondary); }
   transition: width 1s linear;
 }
 
+.scroll-hint {
+  display: none;
+  text-align: center;
+  margin-top: 16px;
+  color: var(--accent-light);
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: bounceDown 1.5s ease infinite;
+}
+
+.scroll-hint.visible {
+  display: block;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
 /* Blog Content Area */
 .blog-content {
   background: var(--bg-card);

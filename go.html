@@ -86,6 +86,7 @@
         <div class="timer-progress-bar">
           <div class="timer-progress-fill" id="timer-fill" style="width: 100%;"></div>
         </div>
+        <div class="scroll-hint" id="scroll-hint">👇 Scroll down to continue</div>
       </div>
 
       <!-- Ad Slot 1 -->
@@ -340,6 +341,10 @@
           }
 
           wrapper.classList.add('visible');
+
+          // Show scroll hint
+          document.getElementById('scroll-hint').classList.add('visible');
+          wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
           btn.addEventListener('click', function() {
             const nextStep = currentStep + 1;
